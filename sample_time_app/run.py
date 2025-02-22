@@ -7,10 +7,10 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello world!'
 
-@app.route('/time')
-def get_time():
-    # Return the current date and time as a string
-    return f"Current time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+@app.route("/time")
+def current_time():
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return "Current time: {}".format(now)
 
 
 app.run(host='0.0.0.0',
