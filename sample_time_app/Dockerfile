@@ -1,20 +1,16 @@
-FROM python:3.5
+FROM python:3.9-slim
 
-RUN apt-get update \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
-RUN groupadd -g 799 nyu && \
-    useradd -r -u 999 -g nyu nyu
-
-# Set up a working folder and install the pre-reqs
 WORKDIR /app
 
-RUN pip install Flask
+# Copy and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-USER nyu
+# Copy the application code
+COPY app.py .
 
-COPY --chown=nyu:nyu . .
+# Expose port 80 so the container is accessible externally
+EXPOSE 80
 
-CMD [ "python", "./run.py" ]
+# Run the application
+CMD ["python", "app.py"]
