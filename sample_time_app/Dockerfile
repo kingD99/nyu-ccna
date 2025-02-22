@@ -1,20 +1,23 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
+FROM python:3.5
 
-# Set the working directory in the container
+RUN apt-get update \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+RUN groupadd -g 799 nyu && \
+    useradd -r -u 999 -g nyu nyu
+
+# Set up a working folder and install the pre-reqs
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+RUN pip install Flask
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+USER nyu
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
-# Define environment variable
-ENV FLASK_APP=app.py
+COPY --chown=nyu:nyu . .
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD [ "python", "./run.py" ]
