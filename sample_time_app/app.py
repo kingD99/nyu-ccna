@@ -3,7 +3,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route('/time')
+@app.route('/')
 def index():
     return "Welcome to the Time App!"
 
