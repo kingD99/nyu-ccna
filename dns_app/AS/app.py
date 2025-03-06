@@ -3,6 +3,8 @@ import os
 
 db_file = "dns_records.txt"
 
+
+
 def save_dns_record(hostname, ip):
     # Ensure the file exists before writing
     if not os.path.exists(db_file):
@@ -11,7 +13,9 @@ def save_dns_record(hostname, ip):
 
     with open(db_file, "a") as f:
         f.write(f"{hostname} {ip}\n")
-        f.flush()  # Force write to disk immediately
+        f.flush()  # Ensure data is written immediately
+
+    print(f"Saved DNS Record: {hostname} -> {ip}")  # Debugging log
 
 
 
