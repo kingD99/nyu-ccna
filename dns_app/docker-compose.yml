@@ -1,0 +1,30 @@
+version: '3'
+services:
+  us:
+    build: ./US
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fs
+      - as
+    environment:
+      - FS_PORT=9090
+      - AS_IP=as
+      - AS_PORT=53533
+
+  fs:
+    build: ./FS
+    ports:
+      - "9090:9090"
+    depends_on:
+      - as
+    environment:
+      - AS_IP=as
+      - AS_PORT=53533
+
+  as:
+    build: ./AS
+    ports:
+      - "53533:53533/udp"
+    volumes:
+      - ./AS/data:/data

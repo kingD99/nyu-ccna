@@ -1,12 +1,10 @@
-# File: US/Dockerfile
-
-FROM python:3.9
+FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY user_server.py requirements.txt ./
-
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-CMD ["python", "user_server.py"]
+COPY user_server.py .
 
+CMD ["python", "user_server.py"]
