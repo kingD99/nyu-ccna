@@ -1,8 +1,10 @@
-FROM python:3.8
+# File: AS/Dockerfile
+
+FROM python:3.9
 
 WORKDIR /app
 
-COPY . .
+COPY auth_server.py ./
 
-CMD ["python", "app.py"]
+CMD ["python", "auth_server.py"]
 

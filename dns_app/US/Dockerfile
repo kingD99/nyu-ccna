@@ -1,10 +1,12 @@
-FROM python:3.8
+# File: US/Dockerfile
+
+FROM python:3.9
 
 WORKDIR /app
 
-COPY . .
+COPY user_server.py requirements.txt ./
 
-RUN pip install flask requests
+RUN pip install -r requirements.txt
 
-CMD ["python", "app.py"]
+CMD ["python", "user_server.py"]
 

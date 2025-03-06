@@ -1,10 +1,12 @@
-FROM python:3.8
+# File: FS/Dockerfile
+
+FROM python:3.9
 
 WORKDIR /app
 
-COPY . .
+COPY fibonacci_server.py requirements.txt ./
 
-RUN pip install flask
+RUN pip install -r requirements.txt
 
-CMD ["python", "app.py"]
+CMD ["python", "fibonacci_server.py"]
 
